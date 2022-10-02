@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +19,8 @@ import com.finzly.entity.Employee;
 import com.finzly.service.EmployeeService;
 
 @RestController
-@RequestMapping("/employee")
+@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping("/Employee")
 public class EmployeeController {
 
 	@Autowired
@@ -37,15 +39,15 @@ public class EmployeeController {
 
 	}
 
-	@PutMapping("/update/{employeeId}")
-	ResponseEntity<Employee> updateEmployee(@PathVariable int employeeId , @RequestBody Employee employee) {
-		Employee updatedEmployee = this.eService.updateEmployee(employeeId,employee);
+	@PutMapping("/update")
+	ResponseEntity<Employee> updateEmployee(@RequestBody Employee employee) {
+		Employee updatedEmployee = this.eService.updateEmployee(employee);
 		return new ResponseEntity<Employee>(updatedEmployee, HttpStatus.ACCEPTED);
 	}
 
 	@DeleteMapping("/delete/{employeeId}")
-	ResponseEntity<String> deleteEmployee(@PathVariable Integer employeeId) {
-		this.eService.deleteEmployee(employeeId);
-		return new ResponseEntity<String>(HttpStatus.OK);
+	ResponseEntity<Employee> deleteEmployee(@PathVariable Integer employeeId) {
+		Employee deletedEmployee = this.eService.deleteEmployee(employeeId);
+		return new ResponseEntity<Employee>(deletedEmployee,HttpStatus.OK);
 	}
 }

@@ -8,7 +8,7 @@ public interface EmployeeService {
 	
 	public Employee saveEmployee(Employee employee);
 	
-	public Employee updateEmployee(Integer employeeId, Employee employee);
+	public Employee updateEmployee(Employee employee);
 	
 	public Employee deleteEmployee(Integer employeeId);
 	

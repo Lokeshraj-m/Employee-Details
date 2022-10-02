@@ -16,15 +16,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Autowired
 	private EmployeeRepo employeeRepo;
-	
-	
+
 	@Override
 	public List<Employee> getAllEmployees() {
 
 		List<Employee> employees = this.employeeRepo.findAll();
 		return employees;
 	}
-
 
 	@Override
 	public Employee saveEmployee(Employee employee) {
@@ -34,28 +32,26 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public Employee updateEmployee(Integer employeeId,Employee employee) {
-		Optional<Employee> employeeOpt = employeeRepo.findById(employeeId);
-		if(employeeOpt.isPresent()) {
+	public Employee updateEmployee(Employee employee) {
+		Optional<Employee> employeeOpt = employeeRepo.findById(employee.getId());
+		if (employeeOpt.isPresent()) {
 			this.employeeRepo.save(employee);
 			return employee;
-		}else {
+		} else {
 			throw new ResourceEmptyException();
 		}
 
-		
 	}
 
 	@Override
 	public Employee deleteEmployee(Integer employeeId) {
 		Optional<Employee> deletedEmployeeOpt = employeeRepo.findById(employeeId);
-		if(deletedEmployeeOpt.isPresent()) {
+		if (deletedEmployeeOpt.isPresent()) {
 			this.employeeRepo.deleteById(employeeId);
 			return deletedEmployeeOpt.get();
-		}else {
-			throw new RuntimeException("No Employee found with id : "+employeeId);
+		} else {
+			throw new ResourceEmptyException();
 		}
 	}
 
-	
 }

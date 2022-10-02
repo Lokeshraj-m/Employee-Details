@@ -29,6 +29,7 @@ public class Employee {
 	private Integer id;
 	private String name;
 	private String email;
+	private String password;
 	private String mobileNo;
 	private String status;
 	@CreationTimestamp
